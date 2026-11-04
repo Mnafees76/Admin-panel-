@@ -66,7 +66,7 @@ export default function Sidebar({ activePage, setActivePage }) {
             </button>
           </div>
         </div>
-
+        
         {/* Application Section */}
         <div>
           <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider px-3 mb-2">
@@ -110,6 +110,19 @@ export default function Sidebar({ activePage, setActivePage }) {
               <div className="flex items-center gap-3">
                 <UserCheck size={18} />
                 <span>Customer</span>
+              </div>
+            </button>
+
+            {/* Manage Products Page Button */}
+            <button 
+              onClick={() => setActivePage('products')}
+              className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl transition ${
+                activePage === 'products' ? 'bg-indigo-50 text-indigo-600 font-medium' : 'text-slate-600 hover:bg-slate-100'
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <ShoppingCart size={18} />
+                <span>Manage Products</span>
               </div>
             </button>
 
