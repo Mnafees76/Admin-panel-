@@ -14,6 +14,7 @@ import {
 
 export default function Sidebar({ activePage, setActivePage }) {
   const [openUsers, setOpenUsers] = useState(true);
+  const [openOrders, setOpenOrders] = useState(true); // Order dropdown state
 
   return (
     <aside className="w-64 bg-slate-50 border-r border-slate-200 h-screen flex flex-col p-4 shrink-0 font-sans">
@@ -128,41 +129,46 @@ export default function Sidebar({ activePage, setActivePage }) {
 
             {/* Order Group */}
             <div className="space-y-1 pt-1">
-              <div className="flex items-center justify-between px-3 py-2 rounded-xl text-slate-700 font-medium bg-slate-100/80">
+              <button 
+                onClick={() => setOpenOrders(!openOrders)}
+                className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 transition"
+              >
                 <div className="flex items-center gap-3">
                   <ShoppingCart size={18} className="text-indigo-600" />
                   <span>Order</span>
                 </div>
-                <ChevronDown size={14} className="text-slate-400" />
-              </div>
+                <ChevronDown size={14} className={`text-slate-400 transition-transform ${openOrders ? 'rotate-180' : ''}`} />
+              </button>
 
               {/* Sub-menu items */}
-              <div className="ml-7 pl-3 border-l-2 border-slate-200 space-y-1 my-1">
-                <button 
-                  onClick={() => setActivePage('order-list')}
-                  className={`w-full text-left px-3 py-1.5 rounded-lg text-xs transition ${
-                    activePage === 'order-list' ? 'bg-indigo-600 text-white font-medium' : 'text-slate-600 hover:bg-slate-100'
-                  }`}
-                >
-                  • List
-                </button>
-                <button 
-                  onClick={() => setActivePage('order-create')}
-                  className={`w-full text-left px-3 py-1.5 rounded-lg text-xs transition ${
-                    activePage === 'order-create' ? 'bg-indigo-600 text-white font-medium' : 'text-slate-600 hover:bg-slate-100'
-                  }`}
-                >
-                  • Create
-                </button>
-                <button 
-                  onClick={() => setActivePage('order-empty')}
-                  className={`w-full text-left px-3 py-1.5 rounded-lg text-xs transition ${
-                    activePage === 'order-empty' ? 'bg-indigo-600 text-white font-medium' : 'text-slate-600 hover:bg-slate-100'
-                  }`}
-                >
-                  • Details / Cart
-                </button>
-              </div>
+              {openOrders && (
+                <div className="ml-7 pl-3 border-l-2 border-slate-200 space-y-1 my-1">
+                  <button 
+                    onClick={() => setActivePage('order-list')}
+                    className={`w-full text-left px-3 py-1.5 rounded-lg text-xs transition ${
+                      activePage === 'order-list' ? 'bg-indigo-600 text-white font-medium' : 'text-slate-600 hover:bg-slate-100'
+                    }`}
+                  >
+                    • List
+                  </button>
+                  <button 
+                    onClick={() => setActivePage('order-create')}
+                    className={`w-full text-left px-3 py-1.5 rounded-lg text-xs transition ${
+                      activePage === 'order-create' ? 'bg-indigo-600 text-white font-medium' : 'text-slate-600 hover:bg-slate-100'
+                    }`}
+                  >
+                    • Create
+                  </button>
+                  <button 
+                    onClick={() => setActivePage('order-empty')}
+                    className={`w-full text-left px-3 py-1.5 rounded-lg text-xs transition ${
+                      activePage === 'order-empty' ? 'bg-indigo-600 text-white font-medium' : 'text-slate-600 hover:bg-slate-100'
+                    }`}
+                  >
+                    • Details / Cart
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Other Apps */}

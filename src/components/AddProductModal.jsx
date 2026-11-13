@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
 
-const AddProductModal = ({ isOpen, onClose }) => {
+const AddProductModal = ({ isOpen, onClose, onProductAdded }) => {
   // Input fields ke liye states
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
@@ -17,7 +17,7 @@ const AddProductModal = ({ isOpen, onClose }) => {
     setLoading(true);
 
     try {
-      const response = await fetch('https://backend-psi-ecru-75.vercel.app/api/products/add', {
+      const response = await fetch('http://localhost:5000/api/products/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -40,6 +40,12 @@ const AddProductModal = ({ isOpen, onClose }) => {
         setDescription('');
         setImage('');
         setLoading(false);
+        
+        // Yeh function list ko foran update kar dega bagair refresh ke
+        if (onProductAdded) {
+          onProductAdded();
+        }
+
         onClose(); // Modal band kar dein
       } else {
         alert('Error: ' + data.message);
